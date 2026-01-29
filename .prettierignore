@@ -1,0 +1,22 @@
+# Dependencies
+node_modules
+
+# Build & cache
+dist
+.angular
+out-tsc
+tmp
+coverage
+
+# Lock files (avoid noisy diffs)
+bun.lock
+package-lock.json
+yarn.lock
+
+# IDE / editor (optional: keep configs unformatted)
+.vscode
+.cursor
+
+# Generated / minified
+*.min.js
+*.min.css

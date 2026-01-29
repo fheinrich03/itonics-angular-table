@@ -21,12 +21,12 @@ Build a single-page Angular application (front-end only) that displays data from
 ### 1. Single Page & Layout
 
 - One main page containing:
-  - A **header/toolbar** with a title (e.g. “Star Wars Fleet” or “Star Wars Directory”).
-  - A **filter/search area**.
-  - A **scrollable data grid** that fills the remaining viewport height.
+    - A **header/toolbar** with a title (e.g. “Star Wars Fleet” or “Star Wars Directory”).
+    - A **filter/search area**.
+    - A **scrollable data grid** that fills the remaining viewport height.
 - Use **one SWAPI resource consistently**, for example:
-  - **starships** (recommended), or
-  - **people**.
+    - **starships** (recommended), or
+    - **people**.
 
 ### 2. Data Grid
 
@@ -76,8 +76,8 @@ Implement **cell-level editing** in the grid:
 
 - **At least one column** must be editable for each row.
 - **Editing behavior:**
-  - Start editing via click / double-click / icon (your choice).
-  - Confirm edits on **Enter** or **blur** (Escape to cancel is a plus).
+    - Start editing via click / double-click / icon (your choice).
+    - Confirm edits on **Enter** or **blur** (Escape to cancel is a plus).
 
 Do **not** attempt to save changes to SWAPI. SWAPI is read-only; all edited values must be stored only in the **client state**.
 
@@ -85,8 +85,8 @@ Do **not** attempt to save changes to SWAPI. SWAPI is read-only; all edited valu
 
 - Initial loading state for the first page is allowed (spinner or skeleton).
 - **On API error:**
-  - Show an error message.
-  - Provide a retry action.
+    - Show an error message.
+    - Provide a retry action.
 - Layout should remain usable on narrow viewports (scrollable grid container).
 
 ---
@@ -96,8 +96,8 @@ Do **not** attempt to save changes to SWAPI. SWAPI is read-only; all edited valu
 - Angular application, **front-end only**.
 - **TypeScript** expected.
 - **API usage:**
-  - Only https://swapi.dev/.
-  - Wrap SWAPI calls and pagination logic.
+    - Only https://swapi.dev/.
+    - Wrap SWAPI calls and pagination logic.
 - You may use third-party packages to implement.
 
 ---
@@ -116,10 +116,10 @@ Git repository with:
 - Source code
 - Tests (as above)
 - **README** explaining:
-  - How to install and run the app.
-  - Which SWAPI resource was chosen.
-  - How infinite scroll and the “no loader while scrolling” behavior are implemented.
-  - Which column(s) are editable and how/where edited values are stored.
-  - How column resizing is implemented.
-  - Any trade-offs or limitations.
-  - Which third-party package (if any) is used.
+    - How to install and run the app.
+    - Which SWAPI resource was chosen.
+    - How infinite scroll and the “no loader while scrolling” behavior are implemented.
+    - Which column(s) are editable and how/where edited values are stored.
+    - How column resizing is implemented.
+    - Any trade-offs or limitations.
+    - Which third-party package (if any) is used.
