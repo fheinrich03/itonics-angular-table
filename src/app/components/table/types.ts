@@ -1,6 +1,8 @@
-export type PersonRow = {
+export type StarshipRow = {
   name: string,
-  height: number,
-  mass: number,
-  gender: 'male' | 'female'
+  model: string,
+  manufacturer: string,
+  crew: string,
+  passengers: string,
+  hyperdrive_rating: string,
 }

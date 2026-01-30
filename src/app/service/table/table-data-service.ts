@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { map, type Observable } from 'rxjs'
-import type { PersonRow } from '../../components/table/types'
-import type { PeopleResponse } from '../../types/people'
+import type { StarshipsResponse, Starship } from '../../types/starship'
+import type { StarshipRow } from '../../components/table/types'
 
 const API_URL = 'https://swapi.dev/api/'
 
@@ -12,14 +12,16 @@ const API_URL = 'https://swapi.dev/api/'
 export class TableDataService {
     constructor(private http: HttpClient) {}
 
-    getPeople(page = 1): Observable<PersonRow[]> {
-        return this.http.get<PeopleResponse>(`${API_URL}people?page=${page}`).pipe(
+    getStarships(page = 1): Observable<StarshipRow[]> {
+        return this.http.get<StarshipsResponse>(`${API_URL}starships?page=${page}`).pipe(
             map((data) =>
-                data.results.map((person) => ({
-                    name: person.name,
-                    height: Number(person.height),
-                    mass: Number(person.mass),
-                    gender: person.gender as PersonRow['gender'],
+                data.results.map((starship) => ({
+                    name: starship.name,
+                    model: starship.model,
+                    manufacturer: starship.manufacturer,
+                    crew: starship.crew,
+                    passengers: starship.passengers,
+                    hyperdrive_rating: starship.hyperdrive_rating,
                 })),
             ),
         )
