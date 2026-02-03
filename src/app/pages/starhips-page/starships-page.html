@@ -15,7 +15,7 @@
 
     <app-table [rowData]="rows()" (loadMore)="onLoadMore()"></app-table>
 
-    @if (!hasMore() && rows().length > 0) {
-        <div class="mt-2 text-center text-sm text-slate-500">End of list</div>
+    @if (allStarshipsLoaded() && rows().length > 0) {
+        <div class="mt-2 text-center text-sm text-slate-500">All Starships Loaded</div>
     }
 }

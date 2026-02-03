@@ -47,27 +47,29 @@ export class Table {
         })
     }
 
-    onGridReady(event: GridReadyEvent<StarshipRow>) {
-        this.gridApi = event.api
-    }
-
-    onBodyScroll(event: BodyScrollEvent) {
+    private triggerLoadMore() {
         if (!this.gridApi) return
-        if (this.isLoadingMore) return
-
-        // Avoid triggering on initial render (top=0) before the user scrolls.
-        if (event.top <= 0) return
 
         const lastDisplayedRow = this.gridApi.getLastDisplayedRowIndex()
         const totalRows = this.gridApi.getDisplayedRowCount()
         if (totalRows === 0) return
 
-        // Trigger when the user scrolls close to the end of the currently displayed rows.
         const shouldLoadMore = lastDisplayedRow >= totalRows - 1 - Table.LOAD_MORE_THRESHOLD_ROWS
 
         if (shouldLoadMore) {
             this.isLoadingMore = true
             this.loadMore.emit()
         }
+    }
+
+    onGridReady(event: GridReadyEvent<StarshipRow>) {
+        this.gridApi = event.api
+    }
+
+    onBodyScroll(event: BodyScrollEvent) {
+        if (this.isLoadingMore) return
+        if (event.top <= 0) return
+
+        this.triggerLoadMore()
     }
 }

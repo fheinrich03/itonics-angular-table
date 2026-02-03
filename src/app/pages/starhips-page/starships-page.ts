@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject } from '@angular/core'
+import { Component, computed, effect, inject, signal } from '@angular/core'
 import { injectInfiniteQuery } from '@tanstack/angular-query-experimental'
 import { Table } from '../../components/table/table'
 import { TableDataService } from '../../service/table/table-data-service'
@@ -16,6 +16,8 @@ export class StarshipsPage {
 
     private tableDataService = inject(TableDataService)
 
+    allStarshipsLoaded = signal(false)
+
     readonly query = injectInfiniteQuery(() => ({
         queryKey: ['starships'],
         initialPageParam: 1,
@@ -27,13 +29,7 @@ export class StarshipsPage {
         () => this.query.data()?.pages.flatMap((p) => p.rows) ?? [],
     )
 
-    // Convenience helpers for template readability
-    hasMore() {
-        return this.query.hasNextPage()
-    }
-
     constructor() {
-        // Load N pages initially (to avoid "no scrollbar" on short viewports).
         effect(() => {
             const pagesLoaded = this.query.data()?.pages.length ?? 0
             if (pagesLoaded >= StarshipsPage.INITIAL_PAGES_TO_LOAD) return
@@ -45,7 +41,7 @@ export class StarshipsPage {
     }
 
     onLoadMore() {
-        if (!this.query.hasNextPage()) return
+        if (!this.query.hasNextPage()) this.allStarshipsLoaded.set(true)
         if (this.query.isFetchingNextPage()) return
         void this.query.fetchNextPage()
     }
