@@ -3,6 +3,8 @@
 @import 'tailwindcss/preflight.css' layer(base);
 @import 'tailwindcss/utilities.css';
 
+/* --- STAR WARS PALETTE DEFINITION --- */
+/* Diese Variablen machen die Farben im Tailwind Config verfügbar */
 @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
@@ -23,11 +25,8 @@
     --color-border: var(--border);
     --color-input: var(--input);
     --color-ring: var(--ring);
-    --color-chart-1: var(--chart-1);
-    --color-chart-2: var(--chart-2);
-    --color-chart-3: var(--chart-3);
-    --color-chart-4: var(--chart-4);
-    --color-chart-5: var(--chart-5);
+    
+    /* Spartan Sidebar Vars */
     --color-sidebar: var(--sidebar);
     --color-sidebar-foreground: var(--sidebar-foreground);
     --color-sidebar-primary: var(--sidebar-primary);
@@ -36,6 +35,14 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+
+    /* Custom Star Wars Raw Colors (optional für direkte Nutzung) */
+    --color-sw-blue: var(--sw-blue);
+    --color-sw-red: var(--sw-red);
+    --color-sw-yellow: var(--sw-yellow);
+    --color-sw-space: var(--sw-space-black);
+    
+    /* Radius */
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
@@ -46,70 +53,119 @@
 @import '@spartan-ng/brain/hlm-tailwind-preset.css';
 
 :root {
+    /* --- 1. STAR WARS SOURCE PALETTE --- */
+    /* Dies sind exakt deine Farbwerte */
+    --sw-blue: oklch(0.4108 0.1974 267.81);       /* Jedi / Hologramm / R2D2 */
+    --sw-red: oklch(0.5486 0.2164 23.1);         /* Sith / Laser */
+    --sw-yellow: oklch(0.7526 0.1617 98.8);      /* Crawl Logo */
+    --sw-space-black: oklch(0.1 0.02 269.68);    /* Deep Space */
+    --sw-empire-grey: oklch(0.29 0.01 260.22);   /* Death Star Interior */
+    --sw-rebel-white: oklch(0.985 0.005 240);    /* Clean Walls / Stormtrooper */
+    --sw-tech-grey: oklch(0.5562 0.023 257.25);  /* Machinery */
+
+    /* Basic Settings */
     color-scheme: light;
-
-    --font-sans:
-        -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-        sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     --radius: 0.625rem;
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.129 0.042 264.695);
+
+    /* --- 2. LIGHT THEME (Republic / Clean) --- */
+    /* Basiert auf Spartan Neutral, aber etwas kühler (techy) */
+    
+    --background: var(--sw-rebel-white);
+    --foreground: oklch(0.145 0 0); /* Fast Schwarz für guten Kontrast */
+
     --card: oklch(1 0 0);
-    --card-foreground: oklch(0.129 0.042 264.695);
+    --card-foreground: oklch(0.145 0 0);
+
     --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.129 0.042 264.695);
-    --primary: oklch(0.208 0.042 265.755);
-    --primary-foreground: oklch(0.984 0.003 247.858);
-    --secondary: oklch(0.968 0.007 247.896);
-    --secondary-foreground: oklch(0.208 0.042 265.755);
-    --muted: oklch(0.968 0.007 247.896);
-    --muted-foreground: oklch(0.554 0.046 257.417);
-    --accent: oklch(0.968 0.007 247.896);
-    --accent-foreground: oklch(0.208 0.042 265.755);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.929 0.013 255.508);
-    --input: oklch(0.929 0.013 255.508);
-    --ring: oklch(0.704 0.04 256.788);
-    --sidebar: oklch(0.984 0.003 247.858);
-    --sidebar-foreground: oklch(0.129 0.042 264.695);
-    --sidebar-primary: oklch(0.208 0.042 265.755);
-    --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-    --sidebar-accent: oklch(0.968 0.007 247.896);
-    --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-    --sidebar-border: oklch(0.929 0.013 255.508);
-    --sidebar-ring: oklch(0.704 0.04 256.788);
+    --popover-foreground: oklch(0.145 0 0);
+
+    /* Primary: Dein Jedi Blau */
+    --primary: var(--sw-blue);
+    --primary-foreground: oklch(0.985 0 0);
+
+    /* Secondary: Leichtes Grau */
+    --secondary: oklch(0.97 0.01 240);
+    --secondary-foreground: var(--sw-blue);
+
+    /* Muted: Für unwichtigere Texte */
+    --muted: oklch(0.97 0.01 240);
+    --muted-foreground: oklch(0.556 0.02 240);
+
+    /* Accent: Hier nutzen wir dein Blau sehr hell oder Neutral */
+    --accent: oklch(0.96 0.01 240);
+    --accent-foreground: var(--sw-blue);
+
+    /* Destructive: Dein Sith Rot */
+    --destructive: var(--sw-red);
+    --destructive-foreground: oklch(0.985 0 0);
+
+    /* Borders & Inputs */
+    --border: oklch(0.922 0.01 240);
+    --input: oklch(0.922 0.01 240);
+    --ring: var(--sw-blue); /* Focus Ring in Jedi Blau */
+
+    /* Sidebar Light */
+    --sidebar: oklch(0.985 0.005 240);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: var(--sw-blue);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.96 0.01 240);
+    --sidebar-accent-foreground: var(--sw-blue);
+    --sidebar-border: oklch(0.922 0.01 240);
+    --sidebar-ring: var(--sw-blue);
 }
 
 :root.dark {
     color-scheme: dark;
 
-    --background: oklch(0.129 0.042 264.695);
-    --foreground: oklch(0.984 0.003 247.858);
-    --card: oklch(0.208 0.042 265.755);
-    --card-foreground: oklch(0.984 0.003 247.858);
-    --popover: oklch(0.208 0.042 265.755);
-    --popover-foreground: oklch(0.984 0.003 247.858);
-    --primary: oklch(0.929 0.013 255.508);
-    --primary-foreground: oklch(0.208 0.042 265.755);
-    --secondary: oklch(0.279 0.041 260.031);
-    --secondary-foreground: oklch(0.984 0.003 247.858);
-    --muted: oklch(0.279 0.041 260.031);
-    --muted-foreground: oklch(0.704 0.04 256.788);
-    --accent: oklch(0.279 0.041 260.031);
-    --accent-foreground: oklch(0.984 0.003 247.858);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.551 0.027 264.364);
-    --sidebar: oklch(0.208 0.042 265.755);
-    --sidebar-foreground: oklch(0.984 0.003 247.858);
-    --sidebar-primary: oklch(0.984 0.003 247.858);
-    --sidebar-primary-foreground: oklch(0.208 0.042 265.755);
-    --sidebar-accent: oklch(0.279 0.041 260.031);
-    --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.551 0.027 264.364);
+    /* --- 3. DARK THEME (Empire / Space) --- */
+    
+    /* Background: Dein Space Black */
+    --background: var(--sw-space-black);
+    --foreground: oklch(0.985 0 0);
+
+    /* Card: Dein Empire Grey */
+    --card: var(--sw-empire-grey);
+    --card-foreground: oklch(0.985 0 0);
+
+    --popover: var(--sw-space-black);
+    --popover-foreground: oklch(0.985 0 0);
+
+    /* Primary: Jedi Blau (leuchtet gut auf dunkel) */
+    --primary: var(--sw-blue); 
+    --primary-foreground: oklch(0.985 0 0);
+
+    /* Secondary: Dunkleres Grau/Blau */
+    --secondary: oklch(0.269 0.02 260);
+    --secondary-foreground: oklch(0.985 0 0);
+
+    /* Muted */
+    --muted: oklch(0.269 0.02 260);
+    --muted-foreground: oklch(0.708 0.02 260);
+
+    /* Accent: Sith Rot für Hover/Highlights oder sehr dunkles Blau */
+    --accent: var(--sw-empire-grey); /* Neutraler Accent Hintergrund */
+    --accent-foreground: var(--sw-yellow); /* Gelber Text bei Hover (Logo Feeling) */
+
+    /* Destructive: Sith Rot */
+    --destructive: var(--sw-red);
+    --destructive-foreground: oklch(0.985 0 0);
+
+    /* Borders: Sehr subtil, leicht bläulich (Tech feeling) */
+    --border: oklch(0.269 0.02 260);
+    --input: oklch(0.269 0.02 260);
+    --ring: var(--sw-red); /* Sith Ring im Dark Mode oder Blau lassen */
+
+    /* Sidebar Dark */
+    --sidebar: var(--sw-space-black);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: var(--sw-blue);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: var(--sw-empire-grey);
+    --sidebar-accent-foreground: var(--sw-yellow);
+    --sidebar-border: oklch(0.269 0.02 260);
+    --sidebar-ring: var(--sw-red);
 }
 
 @layer base {
