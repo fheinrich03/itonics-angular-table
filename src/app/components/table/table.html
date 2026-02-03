@@ -1,25 +1,29 @@
-<div>
-    <h1 class="py-4 text-2xl font-bold">Angular Grid</h1>
+<div class="card">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div class="grid w-full max-w-md items-center gap-2">
+            <label hlmLabel for="search">Search</label>
+            <input
+                hlmInput
+                id="search"
+                type="text"
+                placeholder="Name, model, manufacturer, ..."
+                [(ngModel)]="search"
+            />
+        </div>
 
-    <div class="mb-3 grid w-full max-w-md items-center gap-2">
-        <label hlmLabel for="search">Search</label>
-        <input
-            hlmInput
-            id="search"
-            type="text"
-            placeholder="Name, Mode, Manufacturer, ..."
-            [(ngModel)]="search"
-        />
+        <div class="text-muted-foreground text-xs">Tip: scroll to the bottom to load more</div>
     </div>
 
-    <ag-grid-angular
-        [rowData]="rowData()"
-        [columnDefs]="colDefs"
-        (gridReady)="onGridReady($event)"
-        (bodyScroll)="onBodyScroll($event)"
-        [loading]="isLoading()"
-        [theme]="theme"
-        suppressScrollOnNewData
-        allowResizing
-    />
+    <div class="mt-4">
+        <ag-grid-angular
+            [rowData]="rowData()"
+            [columnDefs]="colDefs"
+            (gridReady)="onGridReady($event)"
+            (bodyScroll)="onBodyScroll($event)"
+            [loading]="isLoading()"
+            [theme]="theme"
+            suppressScrollOnNewData
+            allowResizing
+        />
+    </div>
 </div>
