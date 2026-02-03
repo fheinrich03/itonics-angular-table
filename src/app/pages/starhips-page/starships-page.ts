@@ -1,5 +1,6 @@
 import { Component, computed, effect, inject, signal } from '@angular/core'
 import { injectInfiniteQuery } from '@tanstack/angular-query-experimental'
+import { FormsModule } from '@angular/forms'
 import { Table } from '../../components/table/table'
 import { TableDataService } from '../../service/table/table-data-service'
 import type { StarshipRow } from '../../components/table/types'
@@ -7,7 +8,7 @@ import type { StarshipRow } from '../../components/table/types'
 @Component({
     selector: 'app-starships-page',
     standalone: true,
-    imports: [Table],
+    imports: [Table, FormsModule],
     templateUrl: './starships-page.html',
     styleUrl: './starships-page.css',
 })
@@ -25,9 +26,15 @@ export class StarshipsPage {
         getNextPageParam: (lastPage) => lastPage.nextPage,
     }))
 
-    readonly rows = computed<StarshipRow[]>(
-        () => this.query.data()?.pages.flatMap((p) => p.rows) ?? [],
+    readonly rows = computed<StarshipRow[] | null>(
+        () => this.query.data()?.pages.flatMap((p) => p.rows) ?? null,
     )
+
+    readonly rowLength = computed(() => this.rows()?.length ?? 0)
+    readonly isInitialLoading = computed(() => {
+        const pagesLoaded = this.query.data()?.pages.length ?? 0
+        return this.query.isPending() && pagesLoaded < StarshipsPage.INITIAL_PAGES_TO_LOAD
+    })
 
     constructor() {
         effect(() => {

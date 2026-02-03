@@ -1,5 +1,17 @@
 <div>
     <h1 class="py-4 text-2xl font-bold">Angular Grid</h1>
+
+    <div class="mb-3 grid w-full max-w-md items-center gap-2">
+        <label hlmLabel for="search">Search</label>
+        <input
+            hlmInput
+            id="search"
+            type="text"
+            placeholder="Name, Mode, Manufacturer, ..."
+            [(ngModel)]="search"
+        />
+    </div>
+
     <ag-grid-angular
         [rowData]="rowData()"
         [columnDefs]="colDefs"
