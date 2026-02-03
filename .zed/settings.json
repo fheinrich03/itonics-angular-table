@@ -1,0 +1,10 @@
+{
+  "languages": {
+      "TypeScript": {
+        "language_servers": ["angular", "vtsls"]
+      },
+      "HTML": {
+        "language_servers": ["angular", "vscode-html-language-server"]
+      }
+    }
+}

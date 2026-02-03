@@ -1,4 +1,12 @@
 <div>
     <h1 class="py-4 text-2xl font-bold">Angular Grid</h1>
-    <ag-grid-angular [rowData]="rowData()" [columnDefs]="colDefs" allowResizing />
+    <ag-grid-angular
+        [rowData]="rowData()"
+        [columnDefs]="colDefs"
+        (gridReady)="onGridReady($event)"
+        (bodyScroll)="onBodyScroll($event)"
+        [loading]="isLoading()"
+        suppressScrollOnNewData
+        allowResizing
+    />
 </div>

@@ -1,7 +1,7 @@
 export interface StarshipsResponse {
   count: number
-  next: string
-  previous: any
+  next: string | null
+  previous: string | null
   results: Starship[]
 }
 
