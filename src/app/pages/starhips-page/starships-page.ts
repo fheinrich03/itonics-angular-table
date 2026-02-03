@@ -1,4 +1,5 @@
-import { Component, inject, signal } from '@angular/core'
+import { Component, computed, effect, inject } from '@angular/core'
+import { injectInfiniteQuery } from '@tanstack/angular-query-experimental'
 import { Table } from '../../components/table/table'
 import { TableDataService } from '../../service/table/table-data-service'
 import type { StarshipRow } from '../../components/table/types'
@@ -15,72 +16,41 @@ export class StarshipsPage {
 
     private tableDataService = inject(TableDataService)
 
-    readonly rows = signal<StarshipRow[]>([])
-    readonly errorMessage = signal<string | null>(null)
-    readonly isInitialLoading = signal(true)
+    readonly query = injectInfiniteQuery(() => ({
+        queryKey: ['starships'],
+        initialPageParam: 1,
+        queryFn: ({ pageParam }) => this.tableDataService.getStarshipsPage(pageParam as number),
+        getNextPageParam: (lastPage) => lastPage.nextPage,
+    }))
 
-    private readonly nextPage = signal(1)
-    private readonly hasNext = signal(true)
-    private readonly isFetching = signal(false)
-    private initialPagesLoaded = 0
+    readonly rows = computed<StarshipRow[]>(
+        () => this.query.data()?.pages.flatMap((p) => p.rows) ?? [],
+    )
+
+    // Convenience helpers for template readability
+    hasMore() {
+        return this.query.hasNextPage()
+    }
 
     constructor() {
-        this.fetchNextPage({ isInitial: true })
+        // Load N pages initially (to avoid "no scrollbar" on short viewports).
+        effect(() => {
+            const pagesLoaded = this.query.data()?.pages.length ?? 0
+            if (pagesLoaded >= StarshipsPage.INITIAL_PAGES_TO_LOAD) return
+            if (!this.query.hasNextPage()) return
+            if (this.query.isFetchingNextPage()) return
+
+            void this.query.fetchNextPage()
+        })
     }
 
     onLoadMore() {
-        this.fetchNextPage({ isInitial: false })
+        if (!this.query.hasNextPage()) return
+        if (this.query.isFetchingNextPage()) return
+        void this.query.fetchNextPage()
     }
 
     retryInitialLoad() {
-        this.fetchNextPage({ isInitial: true, force: true })
-    }
-
-    // exposed for template (e.g. end-of-list state)
-    hasMore() {
-        return this.hasNext()
-    }
-
-    private fetchNextPage(options: { isInitial: boolean; force?: boolean }) {
-        if (!options.force) {
-            if (this.isFetching()) return
-            if (!this.hasNext()) return
-        }
-
-        if (options.isInitial) this.isInitialLoading.set(true)
-        this.isFetching.set(true)
-        this.errorMessage.set(null)
-
-        const page = this.nextPage()
-        this.tableDataService.getStarshipsPage(page).subscribe({
-            next: ({ rows, hasNext }) => {
-                this.rows.update((prev) => [...prev, ...rows])
-                this.hasNext.set(hasNext)
-                this.nextPage.set(page + 1)
-                this.isFetching.set(false)
-
-                if (options.isInitial) {
-                    this.initialPagesLoaded += 1
-                    const shouldLoadAnotherInitialPage =
-                        hasNext && this.initialPagesLoaded < StarshipsPage.INITIAL_PAGES_TO_LOAD
-
-                    if (shouldLoadAnotherInitialPage) {
-                        // Keep the initial loading state; fetch next page immediately.
-                        this.fetchNextPage({ isInitial: true })
-                        return
-                    }
-
-                    this.isInitialLoading.set(false)
-                }
-            },
-            error: (err) => {
-                // don't spam errors during scroll; keep it simple for now
-                this.errorMessage.set('Failed to load starships. Please try again.')
-                this.isFetching.set(false)
-                if (options.isInitial) this.isInitialLoading.set(false)
-
-                console.error(err)
-            },
-        })
+        void this.query.refetch()
     }
 }

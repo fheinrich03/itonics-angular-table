@@ -20,6 +20,8 @@
         "@angular/forms": "^21.1.0",
         "@angular/platform-browser": "^21.1.0",
         "@angular/router": "^21.1.0",
+        "@tanstack/angular-query-experimental": "^5.90.25",
+        "@tanstack/query-core": "^5.90.20",
         "ag-grid-angular": "^35.0.1",
         "rxjs": "~7.8.0",
         "tslib": "^2.3.0"
