@@ -28,12 +28,12 @@ export class Table {
     loadMore = output<void>()
 
     colDefs: ColDef<StarshipRow>[] = [
-        { field: 'name', resizable: true, flex: 2 },
-        { field: 'model', resizable: true, flex: 1 },
-        { field: 'manufacturer', resizable: true, flex: 1 },
-        { field: 'crew', resizable: true, flex: 1 },
-        { field: 'passengers', resizable: true, flex: 1 },
-        { field: 'hyperdrive_rating', resizable: true, flex: 1 },
+        { field: 'name', editable: true, resizable: true, flex: 2 },
+        { field: 'model', editable: true, resizable: true, flex: 1 },
+        { field: 'manufacturer', editable: true, resizable: true, flex: 1 },
+        { field: 'crew', editable: true, resizable: true, flex: 1 },
+        { field: 'passengers', editable: true, resizable: true, flex: 1 },
+        { field: 'hyperdrive_rating', editable: true, resizable: true, flex: 1 },
     ]
 
     constructor() {
