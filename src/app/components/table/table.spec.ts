@@ -21,4 +21,26 @@ describe('Table', () => {
     it('should create', () => {
         expect(component).toBeTruthy()
     })
+
+    it('adds AG Grid quick filter from search signal', async () => {
+        const setGridOption = vi.fn()
+        component.gridApi.set({ setGridOption } as any)
+
+        component.search.set('falcon')
+        fixture.detectChanges()
+        await fixture.whenStable()
+
+        expect(setGridOption).toHaveBeenCalledWith('quickFilterText', 'falcon')
+    })
+
+    it('removes AG Grid quick filter for empty search', async () => {
+        const setGridOption = vi.fn()
+        component.gridApi.set({ setGridOption } as any)
+
+        component.search.set('')
+        fixture.detectChanges()
+        await fixture.whenStable()
+
+        expect(setGridOption).toHaveBeenCalledWith('quickFilterText', undefined)
+    })
 })
