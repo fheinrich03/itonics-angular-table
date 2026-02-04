@@ -22,7 +22,7 @@ export class StarshipsPage {
     readonly query = injectInfiniteQuery(() => ({
         queryKey: ['starships'],
         initialPageParam: 1,
-        queryFn: ({ pageParam }) => this.tableDataService.getStarshipsPage(pageParam as number),
+        queryFn: ({ pageParam }) => this.tableDataService.getStarshipsPage(pageParam),
         getNextPageParam: (lastPage) => lastPage.nextPage,
     }))
 
@@ -38,13 +38,17 @@ export class StarshipsPage {
 
     constructor() {
         effect(() => {
-            const pagesLoaded = this.query.data()?.pages.length ?? 0
-            if (pagesLoaded >= StarshipsPage.INITIAL_PAGES_TO_LOAD) return
-            if (!this.query.hasNextPage()) return
-            if (this.query.isFetchingNextPage()) return
-
-            void this.query.fetchNextPage()
+            this.loadInitialPages()
         })
+    }
+
+    loadInitialPages() {
+        const pagesLoaded = this.query.data()?.pages.length ?? 0
+        if (pagesLoaded >= StarshipsPage.INITIAL_PAGES_TO_LOAD) return
+        if (!this.query.hasNextPage()) return
+        if (this.query.isFetchingNextPage()) return
+
+        void this.query.fetchNextPage()
     }
 
     onLoadMore() {
