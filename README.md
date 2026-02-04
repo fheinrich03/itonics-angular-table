@@ -1,128 +1,123 @@
-# ItonicsAngularTable
+# Itonics Angular Table
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+Single-page Angular application that displays [Star Wars API (SWAPI)](https://swapi.dev/) data in a feature-rich data grid. Front-end only, built for the ITONICS front-end case study.
 
-## Development server
+**Design reference:** [Figma – ITONICS Front-end dev case study](https://www.figma.com/design/HKUavjyQmk7rXkZqh93q3G/ITONICS-%E2%80%93-Front-end-dev-case-study?node-id=4-3876&t=vgKme9iZS8r9wSIy-1)
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## Install & Run
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+**With Bun (recommended):**
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-
-
-----
-
-## My Documentation and Context
-
-## Install and Run
-
-using bun (faster)
 ```bash
 bun i
 bun start
 ```
 
-or using npm (slower, but works as well)
+**With npm:**
+
 ```bash
 npm i
 npm start
 ```
 
-open the dev server on `http://localhost:4200/`
+Open [http://localhost:4200/](http://localhost:4200/).
 
-### SWAPI resource
-I chose the SWAPI resource **starships** to present in the grid
+---
 
-### Grid
+## Test
 
-- For the Grid I chose the AG Grid: [Angular Data Grid](https://www.ag-grid.com/angular-data-grid/getting-started/)
-- it supports out-of-the-box the following requirements
-  - column resizing
-  - column filtering
-  - column sorting
-  - cell editing
-  - quick filter (search in all columns with one search term)
-  
+**With Bun (recommended):**
+
+```bash
+bun test
+```
+
+**With npm:**
+
+```bash
+npm test
+```
+
+---
+
+## SWAPI Resource
+
+The app uses the **starships** resource from SWAPI. Data is loaded via pagination (`?page=`) and displayed in the grid with infinite scroll.
+
+---
+
+## Implementation Overview
+
+### Data Grid
+
+- **[AG Grid](https://www.ag-grid.com/angular-data-grid/getting-started/)** (Angular Data Grid) is used for the table.
+- Supported out of the box:
+  - **Column resizing** – drag column borders; widths apply immediately (`allowResizing`).
+  - **Column filtering** – per-column filters via the column header menu.
+  - **Column sorting** – click column headers.
+  - **Cell editing** – multiple columns are editable (see below).
+  - **Quick filter** – one search term filters across all columns; the search input is bound to the grid’s quick filter API.
+
 ### Infinite Scroll
 
-- To simplify fetching the data for infinite scroll I use `injectInfiniteQuery` from tanstack query
-- it tracks 
-  - the already fetched pages
-  - what the next page index is and if the next page exists
-  - caching the already fetched pages
-
-For it to work I...
-1. set up the query in the starships-page.ts
-2. load the inital pages in the constructor of starships-page.ts
-3. load more pages on the scroll event from the grid
-
-To avoid a loader while Scrolling:
-- I don't display a loader (except on initial fetch)
-- I fetch the next page before the user sees the last fetched row
-  - condition: `shouldLoadMore = renderedRows >= totalRows - 1``
-  - ag grid rowbuffer is 10 (ag grid renders 10 rows more than are visible)
-  - if the rowbuffer reaches the number of fetched rows -> i fetch the next page
+- **[TanStack Query](https://tanstack.com/query/latest)** (`injectInfiniteQuery`) handles:
+  - Pagination state and “next page” index.
+  - Caching of already fetched pages (no duplicate requests).
+- Flow:
+  1. Infinite query is set up in `starships-page.ts`.
+  2. Initial pages are loaded in a constructor effect (two pages preloaded).
+  3. Further pages are requested on the grid’s `bodyScroll` event when the user nears the bottom.
+- **No loader while scrolling:**  
+  Only the very first load shows a loading state. For scroll-triggered loads, the next page is requested **before** the user reaches the last row:
+  - Condition: `lastDisplayedRowIndex >= displayedRowCount - 1`.
+  - AG Grid’s row buffer (= 10) ensures there are 10 more rendered rows than are visible
+  - If the rendered rows reaches reaches number of rows in buffer the next page is fetched.
 
 ### Search
 
-- The AG Grid already supports filtering in each clolumn, which can be done by clicking the filter icon on the column
-- AG Grid also supports a `quick filter` (search in all columns with one search term)
-  - to make it work I just pass the search value from an input element to the grid api
+- **Per-column filtering:** Use the filter icon in the column header (AG Grid built-in).
+- **Global search:** The search input above the grid drives AG Grid’s **quick filter** (one term across all columns). The value is passed to the grid API; AG Grid shows an empty state when no rows match.
 
-### UI Components & Theme
+### Editable Cells
 
-- I used [spartan-ui](https://spartan.ng/) as a component registry
-  - spartan-ui comes with a set of css variables for consistent theming (see styles.css)
-  - I then added some star wars vibe colors and images from the web for a nice star wars look
+- **Editable columns:** Name, Model, Manufacturer, Crew, Passengers, Hyperdrive rating.
+- **Behavior:** Start editing by double-clicking the cell; confirm with **Enter** or blur, cancel with **Escape** (AG Grid default).
+- **Storage:** Edits are kept in **client state only**. AG Grid updates the row data in memory; there is no write to SWAPI. The same row data could later be synced to an API by wiring a `onCellValueChanged` handler.
 
-### Trade Offs or Limitations
-...
+### UI & Theme
+
+- **[Spartan UI](https://spartan.ng/)** (spartan-ng) for inputs, labels and theming (CSS variables in `src/styles.css`).
+- Custom Star Wars–style colors and imagery applied on top.
+
+---
+
+## Third-Party Packages
+
+| Purpose            | Package |
+|--------------------|--------|
+| Data grid          | [ag-grid-angular](https://www.ag-grid.com/angular-data-grid/) |
+| Infinite scroll / API state | [@tanstack/angular-query-experimental](https://tanstack.com/query/latest) |
+| UI components & theming | [@spartan-ng/brain](https://spartan.ng/) |
+| Styling            | [Tailwind CSS](https://tailwindcss.com/) |
+
+---
+
+## Trade-offs & Limitations
+
+- **Front-end only** – no persistence; edits and cache live only in the browser session.
+- **SWAPI read-only** – no PATCH/POST; pagination and response shape are fixed by the API.
+- **Loader rule** – If the network is very slow, a short gap before new rows appear is possible.
+
+---
+
+## Development
+
+| Command     | Description |
+|------------|-------------|
+| `npm start` / `bun start` | Dev server at `http://localhost:4200/` |
+| `npm run build` / `bun run build` | Production build → `dist/` |
+| `npm test` / `bun test` | Unit tests (Vitest) |
+
+Generated with [Angular CLI](https://angular.dev/tools/cli). For scaffolding (e.g. `ng generate component <name>`), see [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli).
