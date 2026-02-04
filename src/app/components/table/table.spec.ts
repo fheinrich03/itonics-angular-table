@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
+import '../../config/ag-grid.config'
+
 import { Table } from './table'
 
 describe('Table', () => {
