@@ -12,14 +12,14 @@ Single-page Angular application that displays [Star Wars API (SWAPI)](https://sw
 
 ```bash
 bun i
-bun start
+bun run start
 ```
 
 **With npm:**
 
 ```bash
 npm i
-npm start
+npm run start
 ```
 
 Open [http://localhost:4200/](http://localhost:4200/).
@@ -31,13 +31,13 @@ Open [http://localhost:4200/](http://localhost:4200/).
 **With Bun (recommended):**
 
 ```bash
-bun test
+bun run test
 ```
 
 **With npm:**
 
 ```bash
-npm test
+npm run test
 ```
 
 ---
@@ -116,8 +116,8 @@ The app uses the **starships** resource from SWAPI. Data is loaded via paginatio
 
 | Command     | Description |
 |------------|-------------|
-| `npm start` / `bun start` | Dev server at `http://localhost:4200/` |
+| `npm run start` / `bun run start` | Dev server at `http://localhost:4200/` |
 | `npm run build` / `bun run build` | Production build → `dist/` |
-| `npm test` / `bun test` | Unit tests (Vitest) |
+| `npm run test` / `bun run test` | Unit tests (Vitest) |
 
 Generated with [Angular CLI](https://angular.dev/tools/cli). For scaffolding (e.g. `ng generate component <name>`), see [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli).
