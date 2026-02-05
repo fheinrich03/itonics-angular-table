@@ -8,7 +8,7 @@ import {
     type GridReadyEvent,
 } from 'ag-grid-community'
 import { HlmInputImports } from '@spartan-ng/helm/input'
-import type { StarshipRow } from './types'
+import type { StarshipRow } from '../../types/starship-row'
 import { FormsModule } from '@angular/forms'
 import { HlmLabelImports } from '@spartan-ng/helm/label'
 

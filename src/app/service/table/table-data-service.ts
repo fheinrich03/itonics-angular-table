@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { firstValueFrom } from 'rxjs'
 import type { StarshipsResponse } from '../../types/starship'
-import type { StarshipRow } from '../../components/table/types'
+import type { StarshipRow } from '../../types/starship-row'
 
 const API_URL = 'https://swapi.dev/api/'
 

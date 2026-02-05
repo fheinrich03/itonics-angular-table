@@ -3,7 +3,7 @@ import { injectInfiniteQuery } from '@tanstack/angular-query-experimental'
 import { FormsModule } from '@angular/forms'
 import { Table } from '../../components/table/table'
 import { TableDataService } from '../../service/table/table-data-service'
-import type { StarshipRow } from '../../components/table/types'
+import type { StarshipRow } from '../../types/starship-row'
 
 @Component({
     selector: 'app-starships-page',
