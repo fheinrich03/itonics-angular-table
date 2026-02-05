@@ -71,19 +71,19 @@ export class Table {
         { field: 'name', editable: true, resizable: true, flex: 1, filter: true },
         { field: 'model', editable: true, resizable: true, flex: 1, filter: true },
         { field: 'manufacturer', editable: true, resizable: true, flex: 1, filter: true },
-        { field: 'crew', editable: true, resizable: true, flex: 0.5, filter: true },
+        { field: 'crew', editable: true, resizable: true, flex: 0.6, filter: true },
         {
             field: 'passengers',
             editable: true,
             resizable: true,
-            flex: 0.5,
+            flex: 0.6,
             filter: 'agNumberColumnFilter',
         },
         {
             field: 'hyperdrive_rating',
             editable: true,
             resizable: true,
-            flex: 0.3,
+            flex: 0.6,
             filter: 'agNumberColumnFilter',
         },
     ]
