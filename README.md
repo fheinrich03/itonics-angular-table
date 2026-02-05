@@ -110,6 +110,7 @@ The app uses the **starships** resource from SWAPI. Data is loaded via paginatio
 | Infinite scroll / API state | [@tanstack/angular-query-experimental](https://tanstack.com/query/latest) |
 | UI components & theming | [@spartan-ng/brain](https://spartan.ng/) |
 | Styling            | [Tailwind CSS](https://tailwindcss.com/) |
+| Animated Background | [NXGUI starry-sky](https://ngxui.com/docs/starry-sky) |
 
 ---
 
