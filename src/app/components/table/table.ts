@@ -1,4 +1,4 @@
-import { Component, effect, input, output, signal } from '@angular/core'
+import { Component, computed, effect, input, output, signal } from '@angular/core'
 import { AgGridAngular } from 'ag-grid-angular'
 import {
     themeQuartz,
@@ -7,8 +7,12 @@ import {
     type GridApi,
     type GridReadyEvent,
 } from 'ag-grid-community'
+import { provideIcons } from '@ng-icons/core'
+import { lucideFilter, lucideX } from '@ng-icons/lucide'
+import { HlmButtonImports } from '@spartan-ng/helm/button'
 import { HlmCardImports } from '@spartan-ng/helm/card'
 import { HlmInputImports } from '@spartan-ng/helm/input'
+import { HlmIconImports } from '@spartan-ng/helm/icon'
 import type { StarshipRow } from '../../types/starship-row'
 import { FormsModule } from '@angular/forms'
 import { HlmLabelImports } from '@spartan-ng/helm/label'
@@ -16,7 +20,16 @@ import { HlmLabelImports } from '@spartan-ng/helm/label'
 @Component({
     selector: 'app-table',
     standalone: true,
-    imports: [AgGridAngular, FormsModule, HlmCardImports, HlmInputImports, HlmLabelImports],
+    imports: [
+        AgGridAngular,
+        FormsModule,
+        HlmCardImports,
+        HlmButtonImports,
+        HlmIconImports,
+        HlmInputImports,
+        HlmLabelImports,
+    ],
+    providers: [...provideIcons({ lucideFilter, lucideX })],
     templateUrl: './table.html',
     styleUrl: './table.css',
 })
@@ -38,6 +51,11 @@ export class Table {
 
     search = signal('')
     gridApi = signal<GridApi<StarshipRow> | null>(null)
+    private readonly hasColumnFilters = signal(false)
+    readonly hasActiveFilters = computed(() => {
+        const hasQuickFilter = this.search().trim().length > 0
+        return hasQuickFilter || this.hasColumnFilters()
+    })
 
     rowData = input<StarshipRow[] | null>(null)
     isLoading = input<boolean>(false)
@@ -85,6 +103,24 @@ export class Table {
         })
     }
 
+    clearAllFilters() {
+        const api = this.gridApi()
+        this.search.set('')
+        if (!api) return
+
+        api.setFilterModel(null)
+        api.onFilterChanged()
+        this.hasColumnFilters.set(false)
+    }
+
+    onFilterChanged() {
+        const api = this.gridApi()
+        if (!api) return
+
+        const model = api.getFilterModel()
+        this.hasColumnFilters.set(model != null && Object.keys(model).length > 0)
+    }
+
     private triggerLoadMore() {
         const api = this.gridApi()
         if (!api) return
@@ -100,6 +136,7 @@ export class Table {
 
     onGridReady(event: GridReadyEvent<StarshipRow>) {
         this.gridApi.set(event.api)
+        this.onFilterChanged()
     }
 
     onBodyScroll(event: BodyScrollEvent) {

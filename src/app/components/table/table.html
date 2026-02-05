@@ -1,8 +1,11 @@
 <div hlmCard size="sm" class="min-w-0 overflow-hidden">
+    <div hlmCardHeader class="mb-2">
+        <h3 hlmCardTitle class="text-lg font-semibold">All Starships</h3>
+        <p hlmCardDescription>Tip: scroll to the bottom to load more</p>
+    </div>
     <div hlmCardContent class="flex flex-col gap-4">
         <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div class="grid min-w-0 flex-1 items-center gap-2 sm:max-w-md">
-                <label hlmLabel for="search">Search</label>
                 <input
                     hlmInput
                     id="search"
@@ -11,9 +14,23 @@
                     [(ngModel)]="search"
                 />
             </div>
-            <div class="text-muted-foreground shrink-0 text-right text-xs">
-                Tip: scroll to the bottom to load more
-            </div>
+
+            <button
+                hlmBtn
+                size="sm"
+                variant="secondary"
+                [disabled]="!hasActiveFilters()"
+                [class.ring-2]="hasActiveFilters()"
+                [class.ring-primary]="hasActiveFilters()"
+                [class.ring-offset-2]="hasActiveFilters()"
+                [class.ring-offset-background]="hasActiveFilters()"
+                (click)="clearAllFilters()"
+                title="Clear filters"
+                aria-label="Clear filters"
+            >
+                <ng-icon hlm size="sm" name="lucideFilter" />
+                <ng-icon hlm size="sm" name="lucideX" />
+            </button>
         </div>
 
         <div class="min-w-0 overflow-x-auto overflow-y-hidden [-webkit-overflow-scrolling:touch]">
@@ -23,6 +40,7 @@
                 [columnDefs]="colDefs"
                 (gridReady)="onGridReady($event)"
                 (bodyScroll)="onBodyScroll($event)"
+                (filterChanged)="onFilterChanged()"
                 [loading]="isLoading()"
                 [theme]="theme"
                 suppressScrollOnNewData
