@@ -38,6 +38,7 @@
 
     /* Custom Star Wars Raw Colors (optional für direkte Nutzung) */
     --color-sw-blue: var(--sw-blue);
+    --color-sw-green: var(--sw-green);
     --color-sw-red: var(--sw-red);
     --color-sw-yellow: var(--sw-yellow);
     --color-sw-space: var(--sw-space-black);
@@ -56,6 +57,7 @@
     /* --- 1. STAR WARS SOURCE PALETTE --- */
     /* Dies sind exakt deine Farbwerte */
     --sw-blue: oklch(0.4108 0.1974 267.81); /* Jedi / Hologramm / R2D2 */
+    --sw-green: oklch(0.72 0.19 145); /* Lightsaber Jedi Green */
     --sw-red: oklch(0.5486 0.2164 23.1); /* Sith / Laser */
     --sw-yellow: oklch(0.7526 0.1617 98.8); /* Crawl Logo */
     --sw-space-black: oklch(0.1 0.02 269.68); /* Deep Space */
@@ -75,35 +77,35 @@
     --background: var(--sw-rebel-white);
     --foreground: oklch(0.145 0 0); /* Fast Schwarz für guten Kontrast */
 
-    --card: oklch(1 0 0);
+    --card: oklch(0.99 0.004 240);
     --card-foreground: oklch(0.145 0 0);
 
-    --popover: oklch(1 0 0);
+    --popover: oklch(0.99 0.004 240);
     --popover-foreground: oklch(0.145 0 0);
 
     /* Primary: Dein Jedi Blau */
     --primary: var(--sw-blue);
     --primary-foreground: oklch(0.985 0 0);
 
-    /* Secondary: Leichtes Grau */
-    --secondary: oklch(0.97 0.01 240);
+    /* Secondary: Deutliches Grau für Buttons */
+    --secondary: oklch(0.88 0.02 240);
     --secondary-foreground: var(--sw-blue);
 
-    /* Muted: Für unwichtigere Texte */
-    --muted: oklch(0.97 0.01 240);
+    /* Muted: Für unwichtigere Texte / Flächen */
+    --muted: oklch(0.94 0.018 240);
     --muted-foreground: oklch(0.556 0.02 240);
 
-    /* Accent: Hier nutzen wir dein Blau sehr hell oder Neutral */
-    --accent: oklch(0.96 0.01 240);
+    /* Accent: Hover/Highlight, gut abgesetzt */
+    --accent: oklch(0.86 0.03 250);
     --accent-foreground: var(--sw-blue);
 
     /* Destructive: Dein Sith Rot */
     --destructive: var(--sw-red);
     --destructive-foreground: oklch(0.985 0 0);
 
-    /* Borders & Inputs */
-    --border: oklch(0.922 0.01 240);
-    --input: oklch(0.922 0.01 240);
+    /* Border: sichtbare Linien; Input: eigener Hintergrund für Felder */
+    --border: oklch(0.78 0.02 240);
+    --input: oklch(0.94 0.015 240);
     --ring: var(--sw-blue); /* Focus Ring in Jedi Blau */
 
     /* Sidebar Light */
@@ -111,9 +113,9 @@
     --sidebar-foreground: oklch(0.145 0 0);
     --sidebar-primary: var(--sw-blue);
     --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.96 0.01 240);
+    --sidebar-accent: oklch(0.90 0.02 240);
     --sidebar-accent-foreground: var(--sw-blue);
-    --sidebar-border: oklch(0.922 0.01 240);
+    --sidebar-border: oklch(0.78 0.02 240);
     --sidebar-ring: var(--sw-blue);
 }
 
@@ -137,25 +139,25 @@
     --primary: var(--sw-blue);
     --primary-foreground: oklch(0.985 0 0);
 
-    /* Secondary: Dunkleres Grau/Blau */
-    --secondary: oklch(0.269 0.02 260);
+    /* Secondary: Deutliches Grau für Buttons */
+    --secondary: oklch(0.32 0.025 260);
     --secondary-foreground: oklch(0.985 0 0);
 
     /* Muted */
-    --muted: oklch(0.269 0.02 260);
+    --muted: oklch(0.24 0.02 260);
     --muted-foreground: oklch(0.708 0.02 260);
 
-    /* Accent: Sith Rot für Hover/Highlights oder sehr dunkles Blau */
-    --accent: var(--sw-empire-grey); /* Neutraler Accent Hintergrund */
-    --accent-foreground: var(--sw-yellow); /* Gelber Text bei Hover (Logo Feeling) */
+    /* Accent: Hover/Highlight, abgesetzt vom Rest */
+    --accent: oklch(0.36 0.03 260);
+    --accent-foreground: var(--sw-yellow);
 
     /* Destructive: Sith Rot */
     --destructive: var(--sw-red);
     --destructive-foreground: oklch(0.985 0 0);
 
-    /* Borders: Sehr subtil, leicht bläulich (Tech feeling) */
-    --border: oklch(0.269 0.02 260);
-    --input: oklch(0.269 0.02 260);
+    /* Border sichtbar; Input-Fläche etwas heller als Umgebung */
+    --border: oklch(0.38 0.02 260);
+    --input: oklch(0.20 0.02 260);
     --ring: var(--sw-red); /* Sith Ring im Dark Mode oder Blau lassen */
 
     /* Sidebar Dark */
@@ -163,9 +165,9 @@
     --sidebar-foreground: oklch(0.985 0 0);
     --sidebar-primary: var(--sw-blue);
     --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: var(--sw-empire-grey);
+    --sidebar-accent: oklch(0.32 0.025 260);
     --sidebar-accent-foreground: var(--sw-yellow);
-    --sidebar-border: oklch(0.269 0.02 260);
+    --sidebar-border: oklch(0.38 0.02 260);
     --sidebar-ring: var(--sw-red);
 }
 
