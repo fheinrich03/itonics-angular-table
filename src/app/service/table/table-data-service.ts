@@ -31,7 +31,7 @@ export class TableDataService {
                 passengers: starship.passengers,
                 hyperdrive_rating: starship.hyperdrive_rating,
             })),
-            nextPage: data.next ? page + 1 : undefined,
+            nextPage: data.next ? parseInt(data.next.split('page=')[1]) : undefined,
         }
     }
 }
