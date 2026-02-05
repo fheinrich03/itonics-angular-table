@@ -55,7 +55,10 @@ export class StarshipsPage {
     }
 
     onLoadMore() {
-        if (!this.query.hasNextPage()) this.allStarshipsLoaded.set(true)
+        if (!this.query.hasNextPage()) {
+            this.allStarshipsLoaded.set(true)
+            return
+        }
         if (this.query.isFetchingNextPage()) return
         void this.query.fetchNextPage()
     }
