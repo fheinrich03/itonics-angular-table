@@ -24,6 +24,8 @@ export class StarshipsPage {
         initialPageParam: 1,
         queryFn: ({ pageParam }) => this.tableDataService.getStarshipsPage(pageParam),
         getNextPageParam: (lastPage) => lastPage.nextPage,
+        retry: 2,
+        retryDelay: 400,
     }))
 
     readonly rows = computed<StarshipRow[] | null>(
