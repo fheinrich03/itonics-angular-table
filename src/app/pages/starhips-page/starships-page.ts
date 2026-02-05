@@ -1,6 +1,7 @@
 import { Component, computed, effect, inject, signal } from '@angular/core'
 import { injectInfiniteQuery } from '@tanstack/angular-query-experimental'
 import { FormsModule } from '@angular/forms'
+import { HlmCardImports } from '@spartan-ng/helm/card'
 import { Table } from '../../components/table/table'
 import { TableDataService } from '../../service/table/table-data-service'
 import type { StarshipRow } from '../../types/starship-row'
@@ -8,7 +9,7 @@ import type { StarshipRow } from '../../types/starship-row'
 @Component({
     selector: 'app-starships-page',
     standalone: true,
-    imports: [Table, FormsModule],
+    imports: [Table, FormsModule, HlmCardImports],
     templateUrl: './starships-page.html',
     styleUrl: './starships-page.css',
 })

@@ -7,6 +7,7 @@ import {
     type GridApi,
     type GridReadyEvent,
 } from 'ag-grid-community'
+import { HlmCardImports } from '@spartan-ng/helm/card'
 import { HlmInputImports } from '@spartan-ng/helm/input'
 import type { StarshipRow } from '../../types/starship-row'
 import { FormsModule } from '@angular/forms'
@@ -15,7 +16,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label'
 @Component({
     selector: 'app-table',
     standalone: true,
-    imports: [AgGridAngular, FormsModule, HlmInputImports, HlmLabelImports],
+    imports: [AgGridAngular, FormsModule, HlmCardImports, HlmInputImports, HlmLabelImports],
     templateUrl: './table.html',
     styleUrl: './table.css',
 })

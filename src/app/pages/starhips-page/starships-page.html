@@ -22,18 +22,21 @@
             </p>
         </div>
 
-        <div
-            class="border-border/70 bg-card/60 text-card-foreground w-full self-end rounded-xl border p-3 shadow-sm sm:p-4 lg:w-[360px]"
-        >
-            <div class="grid grid-cols-2 gap-2 text-sm sm:gap-3">
-                <div class="border-border/70 bg-background/40 min-w-0 rounded-md border p-2 sm:p-3">
-                    <div class="text-muted-foreground truncate text-xs">Loaded</div>
-                    <div class="mt-1 font-semibold tabular-nums">{{ rowLength() }}</div>
-                </div>
-                <div class="border-border/70 bg-background/40 min-w-0 rounded-md border p-2 sm:p-3">
-                    <div class="text-muted-foreground truncate text-xs">Status</div>
-                    <div class="mt-1 truncate font-semibold">
-                        {{ allStarshipsLoaded() ? 'All Loaded' : 'Browsing' }}
+        <div hlmCard size="sm" class="w-full self-end lg:w-[360px]">
+            <div hlmCardHeader>
+                <h2 hlmCardTitle>Fleet status</h2>
+            </div>
+            <div hlmCardContent>
+                <div class="grid grid-cols-2 gap-2 text-sm sm:gap-3">
+                    <div class="border-border/70 bg-background/40 min-w-0 rounded-md border p-2 sm:p-3">
+                        <div class="text-muted-foreground truncate text-xs">Loaded</div>
+                        <div class="mt-1 font-semibold tabular-nums">{{ rowLength() }}</div>
+                    </div>
+                    <div class="border-border/70 bg-background/40 min-w-0 rounded-md border p-2 sm:p-3">
+                        <div class="text-muted-foreground truncate text-xs">Status</div>
+                        <div class="mt-1 truncate font-semibold">
+                            {{ allStarshipsLoaded() ? 'All Loaded' : 'Browsing' }}
+                        </div>
                     </div>
                 </div>
             </div>
