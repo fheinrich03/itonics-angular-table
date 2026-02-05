@@ -8,7 +8,7 @@ const API_URL = 'https://swapi.dev/api/'
 
 export type StarshipsPageResult = {
     rows: StarshipRow[]
-    nextPage?: number
+    nextPage: number | null
 }
 
 @Injectable({
@@ -31,7 +31,7 @@ export class TableDataService {
                 passengers: starship.passengers,
                 hyperdrive_rating: starship.hyperdrive_rating,
             })),
-            nextPage: data.next ? parseInt(data.next.split('page=')[1]) : undefined,
+            nextPage: data.next ? parseInt(data.next.split('page=')[1]) : null,
         }
     }
 }
