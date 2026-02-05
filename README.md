@@ -65,6 +65,9 @@ The app uses the **starships** resource from SWAPI. Data is loaded via paginatio
 - **[TanStack Query](https://tanstack.com/query/latest)** (`injectInfiniteQuery`) handles:
   - Pagination state and “next page” index.
   - Caching of already fetched pages (no duplicate requests).
+- The **table-data service is stateless** and only wraps the SWAPI + per-page pagination metadata (`nextPage`).
+  - **Combining pages** into one row list is done in the feature layer (`StarshipsPage`) via `pages.flatMap(...)`.
+  - This keeps caching/persistence in one place (TanStack Query’s `QueryClient`) and keeps the service easy to unit test.
 - Flow:
   1. Infinite query is set up in `starships-page.ts`.
   2. Initial pages are loaded in a constructor effect (two pages preloaded).
