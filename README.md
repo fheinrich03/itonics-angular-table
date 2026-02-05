@@ -87,7 +87,7 @@ The app uses the **starships** resource from SWAPI. Data is loaded via paginatio
 
 - **Editable columns:** Name, Model, Manufacturer, Crew, Passengers, Hyperdrive rating.
 - **Behavior:** Start editing by double-clicking the cell; confirm with **Enter** or blur, cancel with **Escape** (AG Grid default).
-- **Storage:** Edits are kept in **client state only**. AG Grid updates the row data in memory; there is no write to SWAPI. The same row data could later be synced to an API by wiring a `onCellValueChanged` handler.
+- **Storage:** Edits are kept in **client state only**. AG Grid updates the row data in memory. The edited data is not saved to localstorage. There is no update request to SWAPI. The same row data could later be synced to an API by wiring a `onCellValueChanged` handler.
 
 ### UI & Theme
 
