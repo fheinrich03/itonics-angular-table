@@ -6,6 +6,12 @@ Single-page Angular application that displays [Star Wars API (SWAPI)](https://sw
 
 ---
 
+## Screenshot
+
+<img width="1425" height="874" alt="image" src="https://github.com/user-attachments/assets/3bb557f9-a5c7-43e5-bca7-5bd276bccecb" />
+
+---
+
 ## Install & Run
 
 **With Bun (recommended):**
