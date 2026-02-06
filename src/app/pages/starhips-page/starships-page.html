@@ -50,10 +50,7 @@
             <div class="font-semibold">Could not load starships</div>
             <div class="mt-1 text-sm opacity-90">{{ query.error().message }}</div>
             <div class="mt-4">
-                <button
-                    class="bg-destructive text-destructive-foreground ring-offset-background focus-visible:ring-ring inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-semibold transition-colors hover:opacity-95 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-                    (click)="retryInitialLoad()"
-                >
+                <button hlmBtn variant="destructive" size="sm" (click)="retryInitialLoad()">
                     Retry
                 </button>
             </div>
