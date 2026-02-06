@@ -30,6 +30,9 @@
       ],
       "@spartan-ng/helm/icon": [
         "./libs/ui/icon/src/index.ts"
+      ],
+      "@spartan-ng/helm/alert": [
+        "./libs/ui/alert/src/index.ts"
       ]
     }
   },

@@ -44,11 +44,9 @@
     </div>
 
     @if (query.isError()) {
-        <div
-            class="border-destructive/40 bg-destructive/5 text-destructive mt-4 rounded-xl border p-3 shadow-sm sm:mt-6 sm:p-4"
-        >
-            <div class="font-semibold">Could not load starships</div>
-            <div class="mt-1 text-sm opacity-90">{{ query.error().message }}</div>
+        <div hlmAlert variant="destructive" class="mt-4 sm:mt-6">
+            <h4 hlmAlertTitle>Could not load starships</h4>
+            <p hlmAlertDescription>{{ query.error().message }}</p>
             <div class="mt-4">
                 <button hlmBtn variant="destructive" size="sm" (click)="retryInitialLoad()">
                     Retry
